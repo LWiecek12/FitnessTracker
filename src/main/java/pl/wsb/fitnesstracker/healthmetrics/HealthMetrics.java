@@ -1,39 +1,50 @@
-package pl.wsb.fitnesstracker.healthmetrics;
+package pl.wsb.fitnesstracker.healthmetrics; // upewnij się, że pakiet się zgadza
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import pl.wsb.fitnesstracker.user.api.User;
 
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "healthmetrics")
+@Table(name = "Health_Metrics")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
-
 public class HealthMetrics {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // DODANO RELACJĘ (Wiele pomiarów -> Jeden użytkownik)
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
-
-    @Column(nullable = false)
+    @Column(name = "date", nullable = false)
     private LocalDate date;
 
-    @Column(nullable = false)
+    @Column(name = "weight")
     private double weight;
 
-    @Column(name = "resting_heart_rate", nullable = false)
-    private double restingHeartRate;
+    // DODANO ZGODNIE ZE SCHEMATEM: height
+    @Column(name = "height")
+    private double height;
 
-    @Column(name = "sleep_hours", nullable = false)
-    private double sleepHours;
+    // DODANO ZGODNIE ZE SCHEMATEM: heartRate
+    @Column(name = "heartRate")
+    private int heartRate;
 
-    @Column(name = "calories_consumed", nullable = false)
-    private double caloriesConsumed;
+    // Opcjonalnie: Konstruktor do wygodnego tworzenia obiektów
+    public HealthMetrics(User user, LocalDate date, double weight, double height, int heartRate) {
+        this.user = user;
+        this.date = date;
+        this.weight = weight;
+        this.height = height;
+        this.heartRate = heartRate;
+    }
 }
