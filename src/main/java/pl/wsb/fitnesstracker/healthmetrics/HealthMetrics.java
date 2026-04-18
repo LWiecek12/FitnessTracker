@@ -1,11 +1,14 @@
 package pl.wsb.fitnesstracker.healthmetrics;
 
 import jakarta.annotation.Nullable;
+package pl.wsb.fitnesstracker.healthmetrics; // upewnij się, że pakiet się zgadza
+
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import pl.wsb.fitnesstracker.user.api.User;
 
 import java.time.LocalDate;
 

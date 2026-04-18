@@ -32,6 +32,17 @@ public class User {
     // POPRAWIONE: birthday
     @Column(name = "birthday")
     private LocalDate birthday;
+    // DODANE: firstName (
+    @Column(name = "firstName", nullable = false)
+    private String firstName;
+
+    // DODANE: lastName
+    @Column(name = "lastName", nullable = false)
+    private String lastName;
+
+    // POPRAWIONE: birthday
+    @Column(name = "birthday")
+    private LocalDate birthday;
     @Column(name = "first_name", nullable = false)
     private String firstName;
 
@@ -56,6 +67,9 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthdate = birthdate;
+        this.firstName = firstName; // dodane
+        this.lastName = lastName;   // dodane
+        this.birthday = birthday;   // zmienione na birthday
         this.email = email;
     }
 }
