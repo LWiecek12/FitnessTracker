@@ -4,30 +4,37 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import java.time.LocalDate;
+import lombok.ToString;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "event")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString
 public class Event {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "start_date", nullable = false)
-    private LocalDate startDate;
+    @Column(name = "description")
+    private String description;
 
-    @Column(nullable = false)
+    @Column(name = "start_date", nullable = false)
+    private LocalDateTime startDate;
+
+    @Column(name = "location")
     private String location;
 
-    public Event(String name, LocalDate startDate, String location) {
+    // Konstruktor obsługujący parametry z testu
+    public Event(String name, java.time.LocalDate startDate, String location) {
         this.name = name;
-        this.startDate = startDate;
+        this.startDate = startDate.atStartOfDay();
         this.location = location;
     }
 }
