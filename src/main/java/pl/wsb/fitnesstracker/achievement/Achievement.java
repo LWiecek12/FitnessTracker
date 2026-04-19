@@ -1,4 +1,4 @@
-package pl.wsb.fitnesstracker.event;
+package pl.wsb.fitnesstracker.achievement;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -6,35 +6,34 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import pl.wsb.fitnesstracker.user.api.User;
+
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "user_event")
+@Table(name = "achievement")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
-public class UserEvent {
+public class Achievement {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "name", nullable = false)
+    private String name;
+
+    @Column(name = "earned_at", nullable = false)
+    private LocalDateTime earnedAt;
+
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "event_id", nullable = false)
-    private Event event;
-
-    @Column(name = "registration_date", nullable = false)
-    private LocalDateTime registrationDate;
-
-    // Konstruktor dopasowany do testu
-    public UserEvent(User user, Event event) {
+    public Achievement(String name, LocalDateTime earnedAt, User user) {
+        this.name = name;
+        this.earnedAt = earnedAt;
         this.user = user;
-        this.event = event;
-        this.registrationDate = LocalDateTime.now();
     }
 }
