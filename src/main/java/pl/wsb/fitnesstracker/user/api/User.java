@@ -5,13 +5,15 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "Users") // Poprawiona nazwa tabeli (jedno 's')
+@Table(name = "users")
 @Getter
+@Setter // Konieczne do aktualizacji danych użytkownika (PUT)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
 public class User {
@@ -21,17 +23,6 @@ public class User {
     @Nullable
     private Long id;
 
-    // DODANE: firstName (
-    @Column(name = "firstName", nullable = false)
-    private String firstName;
-
-    // DODANE: lastName
-    @Column(name = "lastName", nullable = false)
-    private String lastName;
-
-    // POPRAWIONE: birthday
-    @Column(name = "birthday")
-    private LocalDate birthday;
     @Column(name = "first_name", nullable = false)
     private String firstName;
 
@@ -47,17 +38,11 @@ public class User {
     public User(
             final String firstName,
             final String lastName,
-            final LocalDate birthday, // zmienione na birthday
+            final LocalDate birthdate,
             final String email) {
-
-        this.firstName = firstName; // dodane
-        this.lastName = lastName;   // dodane
-        this.birthday = birthday;   // zmienione na birthday
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthdate = birthdate;
         this.email = email;
     }
-
 }
-

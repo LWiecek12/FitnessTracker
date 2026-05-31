@@ -1,4 +1,4 @@
-package pl.wsb.fitnesstracker;
+package pl.wsb.fitnesstracker.user.internal;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,6 +6,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
+import pl.wsb.fitnesstracker.IntegrationTest;
+import pl.wsb.fitnesstracker.IntegrationTestBase;
 import pl.wsb.fitnesstracker.user.api.User;
 
 import java.time.LocalDate;

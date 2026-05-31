@@ -7,6 +7,7 @@ import pl.wsb.fitnesstracker.user.api.User;
 import pl.wsb.fitnesstracker.user.api.UserProvider;
 import pl.wsb.fitnesstracker.user.api.UserService;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,4 +42,37 @@ class UserServiceImpl implements UserService, UserProvider {
         return userRepository.findAll();
     }
 
+    // --- NOWE METODY DODANE DO ZADANIA LAB04 ---
+
+    @Override
+    public void deleteUser(final Long userId) {
+        log.info("Deleting User with ID {}", userId);
+        userRepository.deleteById(userId);
+    }
+
+    @Override
+    public List<User> searchByEmail(final String emailFragment) {
+        log.info("Searching users by email fragment: {}", emailFragment);
+        return userRepository.findByEmailContainingIgnoreCase(emailFragment);
+    }
+
+    @Override
+    public List<User> searchOlderThan(final LocalDate date) {
+        log.info("Searching users older than: {}", date);
+        return userRepository.findByBirthdateBefore(date);
+    }
+
+    @Override
+    public User updateUser(final Long id, final User updatedUser) {
+        log.info("Updating User with ID {}", id);
+
+        // Szukamy użytkownika po ID, jak jest to go aktualizujemy, jak nie - rzucamy wyjątek
+        return userRepository.findById(id).map(existingUser -> {
+            existingUser.setFirstName(updatedUser.getFirstName());
+            existingUser.setLastName(updatedUser.getLastName());
+            existingUser.setBirthdate(updatedUser.getBirthdate());
+            existingUser.setEmail(updatedUser.getEmail());
+            return userRepository.save(existingUser);
+        }).orElseThrow(() -> new IllegalArgumentException("User with ID " + id + " not found"));
+    }
 }
